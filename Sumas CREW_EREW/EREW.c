@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 void sumaEREW (int*arreglo, int n){
     int *datos = malloc(n*sizeof(int));
@@ -18,7 +19,7 @@ void sumaEREW (int*arreglo, int n){
         int stride = 1 << paso;
 
         for (int i=0; i<n; i++){
-            buffer[i] = buffer[i];
+            buffer[i] = datos[i];
         }
 
         int hilosActivos = 0;
@@ -31,7 +32,7 @@ void sumaEREW (int*arreglo, int n){
             }
         }
 
-        printf("Paso %d | &d hilos activos: [", paso+1, hilosActivos);
+        printf("Paso %d | %d hilos activos: [", paso+1, hilosActivos);
         for (int i=0; i<n; i++){
             printf(i<n-1 ? "%d, ": "%d",datos[i]);
         }
@@ -47,10 +48,20 @@ void sumaEREW (int*arreglo, int n){
 }
 
 int main(){
-    int arreglo[] = {3,1,4,1,5,9,2,6,7,3,8,4,2,7,1,9,
-                     6,5,3,8,4,2,7,1,9,6,5,3,8,4,2,7};
-    int n = sizeof(arreglo) / sizeof(arreglo[0]);
-    
+    int n = 32;
+    int arreglo[n];
+    srand(time(NULL));
+
+    for (int i = 0; i < n; i++){
+        arreglo[i] = rand() % 100 + 1;
+    }
+
+    printf("Arreglo (%d elementos): [", n);
+    for (int i = 0; i < n; i++){
+        printf(i < n - 1 ? "%d, " : "%d", arreglo[i]);
+    }
+    printf("]\n");
+
     sumaEREW(arreglo, n);
     return 0;
 }
