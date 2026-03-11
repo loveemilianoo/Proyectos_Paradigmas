@@ -38,7 +38,7 @@ void sumaEREW (int*arreglo, int n){
         printf("]\n");
     }
 
-    double fin = opm_get_wtime();
+    double fin = omp_get_wtime();
     printf("Resultado: %d\n", datos[0]);
     printf("Tiempo: %.6f segundos\n", fin - inicio);
 
@@ -47,9 +47,9 @@ void sumaEREW (int*arreglo, int n){
 }
 
 int main(){
-    srand(time(NULL));  
-    int n = 32;
-    int *arreglo = (int *)malloc(n * sizeof(int));
+    int arreglo[] = {3,1,4,1,5,9,2,6,7,3,8,4,2,7,1,9,
+                     6,5,3,8,4,2,7,1,9,6,5,3,8,4,2,7};
+    int n = sizeof(arreglo) / sizeof(arreglo[0]);
     
     sumaEREW(arreglo, n);
     return 0;
